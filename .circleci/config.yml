@@ -10,6 +10,11 @@ jobs:
     - checkout
     - setup_remote_docker
     - run:
+        name: Install bash
+        command: |
+          set +o pipefail
+          apk --no-cache update && apk --no-cache add bash
+    - run:
         name: Verify configuration
         command: |
           docker login -u $DOCKER_USER -p $DOCKER_PASSWD
@@ -28,6 +33,11 @@ jobs:
 
     steps:
       - setup_remote_docker
+      - run:
+          name: Install bash
+          command: |
+            set +o pipefail
+            apk --no-cache update && apk --no-cache add bash
       - run:
           name: Deploy application images
           command: |
