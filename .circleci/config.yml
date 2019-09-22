@@ -1,0 +1,26 @@
+version: 2
+jobs:
+  build:
+    docker:
+    - image: docker:17.05.0-ce-git
+
+    working_directory: ~/workdir
+
+    steps:
+    - checkout
+    - setup_remote_docker
+    - run:
+        name: Install bash
+        command: |
+          set +o pipefail
+          apk --no-cache update && apk --no-cache add bash
+    - run:
+        name: Deploy application images
+        command: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWD
+
+          echo Will pull AND DEPLOY USING API DEPLOYMENT API IMAGE x
+          echo Will pull API DEPLOYMENT API IMAGE x
+
+          pwd
+          ls -lart
