@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-    - image: docker:17.05.0-ce-git
+    - image: docker:19-git
 
     working_directory: ~/workdir
 
@@ -10,44 +10,23 @@ jobs:
     - checkout
     - setup_remote_docker
     - run:
-        name: Install bash
-        command: |
-          set +o pipefail
-          apk --no-cache update && apk --no-cache add bash
-    - run:
-        name: Deploy application images
+        name: Verify configuration
         command: |
           docker login -u $DOCKER_USER -p $DOCKER_PASSWD
 
-          env
-
-          echo Will pull AND DEPLOY USING API DEPLOYMENT API IMAGE x
-          echo Will pull API DEPLOYMENT API IMAGE x
-
-          ls -lart
-
-
   deploy:
     docker:
-      - image: docker:17.05.0-ce-git
+      - image: docker:19-git
 
     working_directory: ~/workdir
 
     steps:
       - setup_remote_docker
       - run:
-          name: Install bash
-          command: |
-            set +o pipefail
-            apk --no-cache update && apk --no-cache add bash
-      - run:
           name: Deploy application images
           command: |
             docker login -u $DOCKER_USER -p $DOCKER_PASSWD
-
             env
-
-            echo Will pull AND DEPLOY USING API DEPLOYMENT API IMAGE x
-            echo Will pull API DEPLOYMENT API IMAGE x
-
             ls -lart
+            ./deploy.sh
+
