@@ -21,8 +21,6 @@ jobs:
           export CICD_TRIGGERING_REPONAME=cicdw-myip-infrastructure
           export CICD_TRIGGERING_VERSION=latest
           export CICD_TRIGGERING_BRANCH=master
-          env
-          ls -lart
           ./deploy.sh
 
   deploy:
@@ -43,7 +41,5 @@ jobs:
           name: Deploy application images
           command: |
             docker login -u $DOCKER_USER -p $DOCKER_PASSWD
-            env
-            ls -lart
             ./deploy.sh
 
