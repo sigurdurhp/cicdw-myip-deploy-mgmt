@@ -18,7 +18,8 @@ jobs:
         name: Verify configuration
         command: |
           docker login -u $DOCKER_USER -p $DOCKER_PASSWD
-          export CICD_TRIGGERING_REPONAME=cicdw-myip-infrastructure
+
+          export CICD_TRIGGERING_REPONAME=$DOCKER_USER/cicdw-myip-infrastructure
           export CICD_TRIGGERING_VERSION=latest
           export CICD_TRIGGERING_BRANCH=master
           ./deploy.sh
